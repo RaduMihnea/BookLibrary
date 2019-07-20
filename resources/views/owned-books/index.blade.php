@@ -31,7 +31,7 @@
                                         </div>
                                     </div>
                                     @if(auth()->id())
-                                        <a class="btn btn-primary" onClick="event.preventDefault();
+                                        <a class="btn btn-primary" style="margin-top: 1em" onClick="event.preventDefault();
                                                      document.getElementById('book-form {{$book->id}}').submit();">Delete from my collection</a>
                                     @endif
                                     <form id="book-form {{$book->id}}"  method="POST" action="/owned-books/{{$book->id}}">
