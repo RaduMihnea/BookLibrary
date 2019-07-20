@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 
 class AllBooksController extends Controller
 {
+
     public function post()
     {
         request()->validate(['title' => ['required', 'min:3'],]);
@@ -25,7 +26,7 @@ class AllBooksController extends Controller
 
         $books = JSON_decode($result->getBody(), true)['items'];
 
-        return view('search-result', compact($books));
+        return view('search-results', compact('books'));
 
     }
 }

@@ -16,7 +16,6 @@ Route::get('/', function () {
 });
 
 Route::post('/search-book', 'AllBooksController@post');
-Route::get('search-book', 'AllBooksController@index');
 
 Auth::routes();
 

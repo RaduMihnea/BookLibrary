@@ -16,11 +16,11 @@ class CreateOwnedBooksTable extends Migration
         Schema::create('owned_books', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('owner_id');
-            $table->string('title');
-            $table->string('author');
-            $table->text('description');
-            $table->string('category');
-            $table->string('image_link');
+            $table->string('title')->nullable();
+            $table->string('author')->nullable();
+            $table->text('description')->nullable();
+            $table->string('category')->nullable();
+            $table->string('image_link')->nullable();
             $table->string('preview_link');
             $table->timestamps();
 

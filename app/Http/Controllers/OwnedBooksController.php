@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class OwnedBooksController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,9 @@ class OwnedBooksController extends Controller
      */
     public function index()
     {
-        return auth()->id();
+        $OwnedBooks = auth()->user()->books;
+
+        return view('owned-books.index', compact('OwnedBooks'));
     }
 
     /**
@@ -25,28 +32,28 @@ class OwnedBooksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attributes = $request->validate([
+            'title' => ['required', 'min:3', 'max:255'],
+            'author' => [],
+            'description' => [],
+            'category' => [],
+            'image_link' => [],
+            'preview_link' => ['required', 'min:3', 'max:255'],
+         ]);
+
+        $attributes['owner_id'] = auth()->id();
+
+        OwnedBooks::create($attributes);
+
+        return redirect('/owned-books');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\OwnedBooks  $ownedBooks
-     * @return \Illuminate\Http\Response
-     */
-    public function show(OwnedBooks $ownedBooks)
+    public function destroy(OwnedBooks $owned_book)
     {
-        //
-    }
+        $this->authorize('delete', $owned_book);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\OwnedBooks  $ownedBooks
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(OwnedBooks $ownedBooks)
-    {
-        //
+        $owned_book->delete();
+
+        return redirect('/owned-books');
     }
 }
