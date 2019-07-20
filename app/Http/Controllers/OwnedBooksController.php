@@ -7,16 +7,10 @@ use Illuminate\Http\Request;
 
 class OwnedBooksController extends Controller
 {
-
     public function __construct(){
         $this->middleware('auth');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $OwnedBooks = auth()->user()->books;
@@ -24,12 +18,6 @@ class OwnedBooksController extends Controller
         return view('owned-books.index', compact('OwnedBooks'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $attributes = $request->validate([
